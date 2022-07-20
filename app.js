@@ -11,7 +11,6 @@ const app = express();
 
 //Requering sequelize and models
 const sequelize = require("./models/index").sequelize;
-const Book = require("./models").Book;
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

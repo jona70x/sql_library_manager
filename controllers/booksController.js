@@ -85,6 +85,8 @@ exports.getBooksPerPage = async function (req, res, next) {
   }
 };
 
+//render book from search query
+
 //render form to add a new book
 exports.addBookForm = function (req, res, next) {
   res.render("new-book");
