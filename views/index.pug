@@ -1,0 +1,45 @@
+extends layout 
+
+block content
+
+  div.header
+    h1 SQL Library Manager
+    form.search
+      p
+          input(name='query' type='text' placeholder="Search by title, author, genre or year")
+      p
+          input.button(type='submit')
+      p 
+          input.button(type='reset')
+      p 
+          a.button(href='/') Cancel
+
+
+  table
+      thead
+        tr
+          th Title
+          th Author
+          th Genre
+          th Year
+      tbody
+        each book in books
+          tr
+            td 
+              a(href='/books/' + book.id) #{book.title}
+            td #{book.author}
+            td #{book.genre}
+            td #{book.year}
+  div.center
+    p
+      a.button(href='/books/new') Create New Book
+
+
+  div.pag-center
+    - var n = 1;
+      ul  
+        while n <= buttons
+          li
+            a(href=`/books/page${n}`) 
+              = n++
+

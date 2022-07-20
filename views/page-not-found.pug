@@ -1,0 +1,9 @@
+extends layout 
+
+block content
+  h1 #{error.status} Error
+  p #{error.message} 
+  br
+  p #{error.stack}
+  p
+    a.button(href='/') Home
