@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Please type a valid genre",
           },
           notEmpty: {
-            msg: '"Author" can not be empty',
+            msg: '"Genre" can not be empty',
           },
         },
       },
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Please type a valid year",
           },
           notEmpty: {
-            msg: '"Author" can not be empty',
+            msg: '"Year" can not be empty',
           },
         },
       },

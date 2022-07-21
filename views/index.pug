@@ -33,7 +33,9 @@ block content
   div.center
     p
       a.button(href='/books/new') Create New Book
-
+    if(isResultFromSearch)
+       p 
+          a.button(href='/') Home
 
   div.pag-center
     - var n = 1;
@@ -42,4 +44,4 @@ block content
           li
             a(href=`/books/page${n}`) 
               = n++
-
+  

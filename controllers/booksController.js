@@ -19,19 +19,20 @@ exports.getAllBooks = async function (req, res, next) {
   const finalQuery = cleanQuery(query);
   let books;
   let buttons;
+  let isResultFromSearch;
 
-  if (query === undefined || "") {
+  if (finalQuery === undefined || "") {
     buttons = Math.ceil((await Book.count()) / ITEMS_PER_PAGE);
 
     books = await Book.findAll({
       limit: ITEMS_PER_PAGE,
     });
 
-    res.render("index", { books, buttons });
+    isResultFromSearch = false;
+
+    res.render("index", { books, buttons, isResultFromSearch });
   } else {
     books = await Book.findAll({
-      limit: ITEMS_PER_PAGE,
-
       where: {
         [Op.or]: [
           { title: { [Op.like]: `%${finalQuery}%` } },
@@ -41,9 +42,8 @@ exports.getAllBooks = async function (req, res, next) {
         ],
       },
     });
-
-    buttons = Math.ceil((await Book.count()) / ITEMS_PER_PAGE);
-    res.render("index", { books, buttons });
+    isResultFromSearch = true;
+    res.render("index", { books, isResultFromSearch });
   }
 };
 
@@ -55,21 +55,19 @@ exports.getBooksPerPage = async function (req, res, next) {
   const offset = number * ITEMS_PER_PAGE - ITEMS_PER_PAGE;
   let books;
   let buttons;
+  let isResultFromSearch;
 
-  if (query === undefined || "") {
+  if (finalQuery === undefined || "") {
     buttons = Math.ceil((await Book.count()) / ITEMS_PER_PAGE);
 
     books = await Book.findAll({
       limit: ITEMS_PER_PAGE,
       offset,
     });
-
-    res.render("index", { books, buttons });
+    isResultFromSearch = false;
+    res.render("index", { books, buttons, isResultFromSearch });
   } else {
     books = await Book.findAll({
-      limit: ITEMS_PER_PAGE,
-      offset,
-
       where: {
         [Op.or]: [
           { title: { [Op.like]: `%${finalQuery}%` } },
@@ -79,13 +77,10 @@ exports.getBooksPerPage = async function (req, res, next) {
         ],
       },
     });
-
-    buttons = Math.ceil((await Book.count()) / ITEMS_PER_PAGE);
-    res.render("index", { books, buttons });
+    isResultFromSearch = true;
+    res.render("index", { books, isResultFromSearch });
   }
 };
-
-//render book from search query
 
 //render form to add a new book
 exports.addBookForm = function (req, res, next) {
